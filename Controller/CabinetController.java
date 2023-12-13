@@ -1,26 +1,56 @@
 package map.project.demo.Controller;
 
-import Domain.Cabinet;
-import Repository.CabinetRepository;
-import java.util.ArrayList;
+import map.project.demo.Domain.Cabinet;
+import map.project.demo.Repository.CabinetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-public class CabinetController implements ControllerInterface<Cabinet> {
-    private final CabinetRepository cabinetRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+public class CabinetController {
+    @Autowired
+    private final CabinetRepository cabinetRepository ;
+
     public CabinetController(CabinetRepository cabinetRepository) {
         this.cabinetRepository = cabinetRepository;
     }
-    @Override
-    public void add(ArrayList<String> newObjectData){
-        Cabinet newObject= new Cabinet(Integer.parseInt(newObjectData.get(0)), newObjectData.get(1));
-        cabinetRepository.add(newObject);
+
+
+    @PostMapping("/add")
+    public void add(@RequestBody Cabinet cabinet) {
+        cabinetRepository.save(cabinet);
+
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if(cabinetRepository.findByIdentifier(identifier) != null) {
-            cabinetRepository.delete(cabinetRepository.findByIdentifier(identifier));
-        }
-        else {
+    @GetMapping("/findByIdentifier/{identifier}")
+    public Cabinet findCabinetByIdentifier(@PathVariable String identifier) {
+        return cabinetRepository.findByIdentifier(identifier);
+    }
+
+    @GetMapping("/getAll")
+    public List<Cabinet> getAll() {
+        return (List<Cabinet>) cabinetRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
+        cabinets.forEach(cabinet -> System.out.println(cabinet.toString()));
+    }
+
+    @GetMapping("/delete/{identifier}")
+    public void delete(@PathVariable String identifier) {
+        Cabinet cabinet = cabinetRepository.findByIdentifier(identifier);
+        if (cabinet != null) {
+            cabinetRepository.delete(cabinet);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
@@ -35,8 +65,4 @@ public class CabinetController implements ControllerInterface<Cabinet> {
         }
     }
 
-    @Override
-    public ArrayList<Cabinet> readAll(){
-        return cabinetRepository.readAll();
-    }
 }
