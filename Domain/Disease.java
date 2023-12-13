@@ -1,23 +1,27 @@
-package Domain;
+package map.project.demo.Domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 
 public class Disease {
+    @Id
     private int diseaseID;
     private String name;
-    public Disease(int diseaseID, String name) {
-        this.diseaseID = diseaseID;
-        this.name = name;
-    }
-
-    public int getDiseaseID() {
-        return diseaseID;
-    }
 
     public void setDiseaseID(int diseaseID) {
         this.diseaseID = diseaseID;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {

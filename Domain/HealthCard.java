@@ -1,13 +1,20 @@
-package Domain;
+package map.project.demo.Domain;
 
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class HealthCard {
     private String expirationDate;
     private int pin;
 
-    public HealthCard(String expirationDate, int pin) {
-        this.expirationDate = expirationDate;
-        this.pin = pin;
-    }
     public String getExpirationDate() {
         return expirationDate;
     }

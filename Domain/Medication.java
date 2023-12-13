@@ -1,54 +1,41 @@
-package Domain;
+package map.project.demo.Domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 public class Medication {
+    @Id
     private int medicationID;
     private String name;
     private String administrationRoute;
     private int storageAmount;
     private String expirationDate;
 
-    public Medication(int medicationID, String name, String administrationRoute, int storageAmount, String expirationDate) {
-        this.medicationID = medicationID;
-        this.name = name;
-        this.administrationRoute = administrationRoute;
-        this.storageAmount = storageAmount;
-        this.expirationDate = expirationDate;
-    }
-
-    public int getMedicationID() {
-        return medicationID;
-    }
-
     public void setMedicationID(int medicationID) {
         this.medicationID = medicationID;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getAdministrationRoute() {
-        return administrationRoute;
-    }
-
     public void setAdministrationRoute(String administrationRoute) {
         this.administrationRoute = administrationRoute;
     }
 
-    public int getStorageAmount() {
-        return storageAmount;
-    }
-
     public void setStorageAmount(int storageAmount) {
         this.storageAmount = storageAmount;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
     }
 
     public void setExpirationDate(String expirationDate) {

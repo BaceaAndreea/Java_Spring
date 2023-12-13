@@ -1,34 +1,32 @@
-package Domain;
+package map.project.demo.Domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 
 public class Hospital {
+    @Id
     private int hospitalID;
     private String name;
     private int capacity;
-
-    public Hospital(int hospitalID, String name, int capacity) {
-        this.hospitalID = hospitalID;
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    public int getHospitalID() {
-        return hospitalID;
-    }
 
     public void setHospitalID(int hospitalID) {
         this.hospitalID = hospitalID;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getCapacity() {
-        return capacity;
     }
 
     public void setCapacity(int capacity) {

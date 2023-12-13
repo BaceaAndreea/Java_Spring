@@ -1,54 +1,50 @@
-package Domain;
+package map.project.demo.Domain;
 
 import Observers.Observable;
 import Observers.Observer;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 
 public class Consultation implements Observable {
+    @Id
     private int patientID;
+    @Id
     private int doctorID;
+    @Id
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String date;
+    @Id
     private int diseaseID;
     private boolean card;
     private int price;
     private ArrayList<Observer> observers;
 
-    public Consultation(int patientID, int doctorID, String date, int diseaseID, int price) {
-        this.patientID = patientID;
-        this.doctorID = doctorID;
-        this.date = date;
-        this.diseaseID = diseaseID;
-        this.price = price;
-        this.observers= new ArrayList<>();
-    }
-
-    public int getPatientID() {
-        return patientID;
-    }
-
     public void setPatientID(int patientID) {
         this.patientID = patientID;
-    }
-
-    public int getDoctorID() {
-        return doctorID;
     }
 
     public void setDoctorID(int doctorID) {
         this.doctorID = doctorID;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getDiseaseID() {
-        return diseaseID;
     }
 
     public void setDiseaseID(int diseaseID) {
@@ -61,10 +57,6 @@ public class Consultation implements Observable {
 
     public void setCard(boolean card) {
         this.card = card;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public void setPrice(int price) {

@@ -1,63 +1,48 @@
-package Domain;
+package map.project.demo.Domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 
 public class Surgery {
+    @Id
     private int patientID, doctorID;
+    @Id
     private String date;
+    @Id
     private int diseaseID;
     private String name;
     private int medicationID;
 
-    public Surgery(int patientID, int doctorID, String date, int diseaseID, String name, int medicationID) {
-        this.patientID = patientID;
-        this.doctorID = doctorID;
-        this.date = date;
-        this.diseaseID = diseaseID;
-        this.name = name;
-        this.medicationID = medicationID;
-    }
-
-    public int getPatientID() {
-        return patientID;
-    }
-
     public void setPatientID(int patientID) {
         this.patientID = patientID;
-    }
-
-    public int getDoctorID() {
-        return doctorID;
     }
 
     public void setDoctorID(int doctorID) {
         this.doctorID = doctorID;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getDiseaseID() {
-        return diseaseID;
     }
 
     public void setDiseaseID(int diseaseID) {
         this.diseaseID = diseaseID;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getMedicationID() {
-        return medicationID;
     }
 
     public void setMedicationID(int medicationID) {

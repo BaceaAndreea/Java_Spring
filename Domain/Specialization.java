@@ -1,24 +1,26 @@
-package Domain;
+package map.project.demo.Domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 public class Specialization {
+    @Id
     private int specializationID;
     private String name;
 
-    public Specialization(int specializationID, String name) {
-        this.specializationID = specializationID;
-        this.name = name;
-    }
-
-    public int getSpecializationID() {
-        return specializationID;
-    }
-
     public void setSpecializationID(int specializationID) {
         this.specializationID = specializationID;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {

@@ -1,7 +1,5 @@
 package UI;
 
-import Controller.ControllerInterface;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

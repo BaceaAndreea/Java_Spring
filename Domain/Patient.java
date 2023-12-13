@@ -1,10 +1,23 @@
-package Domain;
+package map.project.demo.Domain;
 import Iterator.PatientIterator;
 import Observers.Observer;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
-
+@Getter
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 public class Patient{
+    @Id
     private int patientID;
     private String name;
     private String firstName;
@@ -12,57 +25,24 @@ public class Patient{
     private String contactPhone;
     private int cardID;
 
-    public Patient(int patientID, String name, String firstName, String birthdate, String contactPhone, int cardID) {
-        this.patientID = patientID;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthdate = birthdate;
-        this.contactPhone = contactPhone;
-        this.cardID = cardID;
-    }
-
-    public int getCardID() {
-        return cardID;
-    }
-
     public void setCardID(int cardID) {
         this.cardID = cardID;
-    }
-
-    public int getPatientID() {
-        return patientID;
     }
 
     public void setPatientID(int patientID) {
         this.patientID = patientID;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFirstName() {
-        return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getBirthdate() {
-        return birthdate;
-    }
-
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
     }
 
     public void setContactPhone(String contactPhone) {

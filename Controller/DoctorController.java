@@ -1,4 +1,4 @@
-package Controller;
+package map.project.demo.Controller;
 
 import Domain.Doctor;
 import Repository.DoctorRepository;

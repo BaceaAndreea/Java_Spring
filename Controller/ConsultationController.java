@@ -1,4 +1,4 @@
-package Controller;
+package map.project.demo.Controller;
 import Observers.*;
 
 import Domain.Consultation;

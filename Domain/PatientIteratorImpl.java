@@ -1,4 +1,4 @@
-package Domain;
+package map.project.demo.Domain;
 
 import Iterator.PatientIterator;
 

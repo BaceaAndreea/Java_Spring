@@ -1,4 +1,4 @@
-package Controller;
+package map.project.demo.Controller;
 
 import Domain.Cabinet;
 import Repository.CabinetRepository;
@@ -24,12 +24,11 @@ public class CabinetController implements ControllerInterface<Cabinet> {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
+    @GetMapping("/update/{identifier}")
+    public void update(String identifier, Cabinet newObject) {
         if(cabinetRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
+            delete(String.valueOf(identifier));
+            add(newObject);
         }
         else{
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");

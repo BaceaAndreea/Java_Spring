@@ -1,6 +1,24 @@
-package Domain;
+package map.project.demo.Domain;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+
 
 public class Doctor {
+    @Id
     private int doctorID;
     private String name, firstName;
     private String birthdate;
@@ -20,14 +38,11 @@ public class Doctor {
         this.cabinetID = builder.cabinetID;
     }
 
-    public int getDoctorID(){
-        return this.doctorID;
-    }
-
     public static class Builder {
 
         private int doctorID;
         private String name, firstName;
+        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         private String birthdate;
         private int hospitalID;
         private String contactPhone;
@@ -88,56 +103,28 @@ public class Doctor {
         this.doctorID = doctorID;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFirstName() {
-        return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getBirthdate() {
-        return birthdate;
-    }
-
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public int getHospitalID() {
-        return hospitalID;
     }
 
     public void setHospitalID(int hospitalID) {
         this.hospitalID = hospitalID;
     }
 
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
 
-    public int getSpecializationID() {
-        return specializationID;
-    }
-
     public void setSpecializationID(int specializationID) {
         this.specializationID = specializationID;
-    }
-
-    public int getCabinetID() {
-        return cabinetID;
     }
 
     public void setCabinetID(int cabinetID) {
