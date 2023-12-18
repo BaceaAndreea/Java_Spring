@@ -14,28 +14,28 @@ import java.util.List;
 public class HospitalController {
     @Autowired private HospitalService service;
 
-    @PostMapping("/add")
+    @PostMapping("/addHospital")
     public void add(@RequestBody Hospital hospital) {
         service.save(hospital);
     }
 
-    @GetMapping("/findByIdentifier/{hospitalID}")
+    @GetMapping("/findByIdentifierHospital/{hospitalID}")
     public Hospital findHospitalByIdentifier(@PathVariable int hospitalID) {
         return service.get(hospitalID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllHospitals")
     public List<Hospital> getAll() {
         return service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllHospital")
     public void printAll() {
         List<Hospital> hospitals = service.listAll();
         hospitals.forEach(hospital -> System.out.println(hospital.toString()));
     }
 
-    @GetMapping("/delete/{hospitalID}}")
+    @GetMapping("/deleteHospital/{hospitalID}")
     public void delete(@PathVariable int hospitalID) {
         Hospital hospital = service.get(hospitalID);
         if (hospital != null) {
@@ -45,7 +45,7 @@ public class HospitalController {
         }
     }
 
-    @GetMapping("/update/{hospitalID}")
+    @GetMapping("/updateHospital/{hospitalID}")
     public void update(@PathVariable int hospitalID, @RequestBody Hospital newObject) {
         Hospital existingHospital = service.get(hospitalID);
         if (existingHospital != null) {

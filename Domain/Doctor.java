@@ -17,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Doctor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorID;
     private String name, firstName;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

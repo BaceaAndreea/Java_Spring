@@ -9,8 +9,6 @@ public class ReadFromUserDisease implements UI.ReadFromUserInterface {
     public static Disease readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
         Disease newDisease = new Disease();
-        System.out.print("ID of the disease (FORMAT DDDD WHERE D- DIGIT): ");
-        newDisease.setDiseaseID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the disease: ");
         newDisease.setName(scanner.nextLine());
         return newDisease;

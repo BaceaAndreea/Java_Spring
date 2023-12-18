@@ -1,63 +1,54 @@
 package map.project.demo.Controller;
 
 import map.project.demo.Domain.Disease;
-import map.project.demo.Repository.DiseaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import map.project.demo.Service.DiseaseService;
 
 import java.util.List;
 
-@RestController 
-@RequestMapping("/api/diseases")
+@RestController
 public class DiseaseController {
+    @Autowired private DiseaseService service;
 
-    @Autowired
-    private final DiseaseRepository diseaseRepository;
-
-    public DiseaseController(DiseaseRepository diseaseRepository) {
-        this.diseaseRepository = diseaseRepository;
-    }
-
-    @PostMapping("/add")
+    @PostMapping("/addDisease")
     public void add(@RequestBody Disease disease) {
-        diseaseRepository.save(disease);
+        service.save(disease);
     }
 
-    @GetMapping("/findByIdentifier/{diseaseID}")
+    @GetMapping("/findDiseaseByIdDisease/{diseaseID}")
     public Disease findDiseaseByIdentifier(@PathVariable int diseaseID) {
-        return diseaseRepository.findByIdentifier(diseaseID);
+        return service.get(diseaseID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllDiseases")
     public List<Disease> getAll() {
-        return (List<Disease>) diseaseRepository.findAll();
+        return service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllDiseases")
     public void printAll() {
-        List<Disease> diseases = (List<Disease>) diseaseRepository.findAll();
+        List<Disease> diseases = service.listAll();
         diseases.forEach(disease -> System.out.println(disease.toString()));
     }
 
-    @GetMapping("/delete/{diseaseID}")
+    @GetMapping("/deleteDisease/{diseaseID}")
     public void delete(@PathVariable int diseaseID) {
-        Disease disease = diseaseRepository.findByIdentifier(diseaseID);
+        Disease disease = service.get(diseaseID);
         if (disease != null) {
-            diseaseRepository.delete(disease);
+            service.delete(diseaseID);
         } else {
-            throw new IllegalArgumentException("Nothing was found for the provided identifier.");
+            throw new IllegalArgumentException("Nothing was found for the provided disease identifier.");
         }
     }
 
-    @GetMapping("/update/{diseaseID}")
+    @PostMapping("/updateDisease/{diseaseID}/ {newObject}")
     public void update(@PathVariable int diseaseID, @RequestBody Disease newObject) {
-        Disease existingDisease = diseaseRepository.findByIdentifier(diseaseID);
-        if (existingDisease != null) {
+        if (service.get(diseaseID) != null) {
             delete(diseaseID);
             add(newObject);
         } else {
-            throw new IllegalArgumentException("Nothing was found for the provided identifier.");
+            throw new IllegalArgumentException("Nothing was found for the provided disease identifier.");
         }
     }
 }

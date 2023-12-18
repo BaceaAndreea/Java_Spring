@@ -2,6 +2,7 @@ package map.project.demo.Controller;
 
 import map.project.demo.Domain.Consultation;
 import map.project.demo.Repository.ConsultationRepository;
+import map.project.demo.Service.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,48 +12,44 @@ import java.util.List;
 @RestController
 public class ConsultationController {
     @Autowired
-    private final ConsultationRepository consultationRepository;
-
-    public ConsultationController(ConsultationRepository consultationRepository) {
-        this.consultationRepository = consultationRepository;
-    }
+    private ConsultationService service;
 
     @PostMapping("/addConsultation")
     public void add(@RequestBody Consultation consultation) {
-        consultationRepository.save(consultation);
+        service.save(consultation);
     }
 
-    @GetMapping("/findByIdentifier/{patientID, doctorID, date}")
-    public Consultation findConsultationByIdentifier(@PathVariable int patientID, int doctorID, String date) {
-        return consultationRepository.findByIdentifier(patientID, doctorID, date);
+    @GetMapping("/findByIdentifierConsultation/{consultationID}")
+    public Consultation findConsultationByIdentifier(@PathVariable int consultationID) {
+        return service.get(consultationID);
     }
 
     @GetMapping("/getAllConsultation")
     public List<Consultation> getAll() {
-        return (List<Consultation>) consultationRepository.findAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAllConsultation")
     public void printAll() {
-        List<Consultation> consultations = (List<Consultation>) consultationRepository.findAll();
+        List<Consultation> consultations = service.listAll();
         consultations.forEach(consultation -> System.out.println(consultation.toString()));
     }
 
-    @DeleteMapping("/delete/{consultationID}")
+    @DeleteMapping("/deleteConsultation/{consultationID}")
     public void delete(@PathVariable int consultationID) {
         Consultation consultation = service.get(consultationID);
         if (consultation != null) {
-            consultationRepository.delete(consultation);
+            service.delete(consultationID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/update/{consultationID, newObject}")
+    @GetMapping("/updateConsultation/{consultationID}/ {newObject}")
     public void update(@PathVariable int consultationID, @RequestBody Consultation newObject) {
         Consultation existingConsultation = service.get(consultationID);
         if (existingConsultation != null) {
-            delete(patientID, doctorID, date);
+            delete(consultationID);
             add(newObject);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");

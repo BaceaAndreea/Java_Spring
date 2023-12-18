@@ -1,9 +1,6 @@
 package map.project.demo.Domain;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -12,9 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-
 public class ECard extends HealthCard{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int electronicID;
 
     public ECard(String expirationDate, int pin, int electronicID) {

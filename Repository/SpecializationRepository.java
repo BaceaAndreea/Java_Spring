@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SpecializationRepository extends CrudRepository<Specialization, Integer> {
 
-    public Specialization findByIdentifier(int specializationID);
+    public Specialization findBySpecializationID(int specializationID);
 
 }

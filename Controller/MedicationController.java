@@ -16,12 +16,12 @@ public class MedicationController {
 
     @PostMapping("/addMedication")
     public void add(@RequestBody Medication medication) {
-        medicationRepository.save(medication);
+        service.save(medication);
     }
 
     @GetMapping("/findByIdentifierMedication/{medicationID}")
     public Medication findMedicationByIdentifier(@PathVariable int medicationID) {
-        return medicationRepository.findByIdentifier(medicationID);
+        return service.get(medicationID);
     }
 
     @GetMapping("/getAllMedication")
@@ -39,15 +39,15 @@ public class MedicationController {
     public void delete(@PathVariable int medicationID) {
         Medication medication = service.get(medicationID);
         if (medication != null) {
-            medicationRepository.delete(medication);
+            service.delete(medicationID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/update/{medicationID}")
+    @GetMapping("/updateMedication/{medicationID}/ {newObject}")
     public void update(@PathVariable int medicationID, @RequestBody Medication newObject) {
-        Medication existingMedication = medicationRepository.findByIdentifier(medicationID);
+        Medication existingMedication = service.get(medicationID);
         if (existingMedication != null) {
             delete(medicationID);
             add(newObject);

@@ -23,15 +23,10 @@ public class ReadFromUserSurgery implements UI.ReadFromUserInterface {
         newSurgery.setMedicationID(Integer.parseInt(scanner.nextLine()));
         return newSurgery;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the Patient (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        System.out.print("ID of the Doctor (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        System.out.println("Date of the surgery (FORMAT YYYY-MM-DD WHERE Y- YEAR, M- MONTH, D- DAY): ");
-        return newObjectData;
+        System.out.print("ID of the surgery (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

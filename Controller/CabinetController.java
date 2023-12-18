@@ -1,9 +1,7 @@
 package map.project.demo.Controller;
 
 import map.project.demo.Domain.Cabinet;
-import map.project.demo.Repository.CabinetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import map.project.demo.Service.CabinetService;
@@ -13,33 +11,32 @@ import java.util.List;
 public class CabinetController {
     @Autowired private CabinetService service ;
 
-    @PostMapping("/add")
+    @PostMapping("/addCabinet")
     public void add(@RequestBody Cabinet cabinet) {
-        cabinetRepository.save(cabinet);
-
+        service.save(cabinet);
     }
 
-    @GetMapping("/findByIdentifier/{cabinetID}")
+    @GetMapping("/findByIdentifierCabinet/{cabinetID}")
     public Cabinet findCabinetByIdentifier(@PathVariable int cabinetID) {
-        return cabinetRepository.findByIdentifier(cabinetID);
+        return service.get(cabinetID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllCabinets")
     public List<Cabinet> getAll() {
         return service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllCabinets")
     public void printAll() {
         List<Cabinet> cabinets = service.listAll();
         cabinets.forEach(cabinet -> System.out.println(cabinet.toString()));
     }
 
-    @GetMapping("/delete/{cabinetID}")
+    @GetMapping("/deleteCabinet/{cabinetID}")
     public void delete(@PathVariable int cabinetID) {
-        Cabinet cabinet = cabinetRepository.findByIdentifier(cabinetID);
+        Cabinet cabinet = service.get(cabinetID);
         if (cabinet != null) {
-            cabinetRepository.delete(cabinet);
+            service.delete(cabinetID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }

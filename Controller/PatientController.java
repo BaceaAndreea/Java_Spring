@@ -59,7 +59,7 @@ public class PatientController {
     }
     @GetMapping("createIterator")
     public PatientIterator createIterator() {
-        List<Patient> patients = getAll();
+        Iterable<Patient> patients = getAll();
         PatientIteratorImpl iterator = new PatientIteratorImpl(patients);
         return iterator;
     }

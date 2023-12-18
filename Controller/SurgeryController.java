@@ -23,7 +23,7 @@ public class SurgeryController {
 
     @GetMapping("/getAllSurgery")
     public List<Surgery> getAll() {
-        return (List<Surgery>) surgeryRepository.findAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAllSurgery")
@@ -32,9 +32,9 @@ public class SurgeryController {
         surgeries.forEach(surgery -> System.out.println(surgery.toString()));
     }
 
-    @GetMapping("/delete/{patientID, doctorID, date, diseaseID}")
-    public void delete(@PathVariable int patientID, int doctorID, String date, int diseaseID) {
-        Surgery surgery = surgeryRepository.findByIdentifier(patientID, doctorID, date, diseaseID);
+    @GetMapping("/deleteSurgery/{surgeryID}")
+    public void delete(@PathVariable int surgeryID) {
+        Surgery surgery = service.get(surgeryID);
         if (surgery != null) {
             service.delete(surgeryID);
         } else {
@@ -46,7 +46,7 @@ public class SurgeryController {
     public void update(@PathVariable int surgeryID, @RequestBody Surgery newObject) {
         Surgery existingSurgery = service.get(surgeryID);
         if (existingSurgery != null) {
-            delete(patientID, doctorID, date, diseaseID);
+            delete(surgeryID);
             add(newObject);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");

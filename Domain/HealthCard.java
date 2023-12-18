@@ -1,8 +1,6 @@
 package map.project.demo.Domain;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -13,7 +11,8 @@ import lombok.*;
 @ToString
 
 public class HealthCard {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String expirationDate;
     private int pin;
 }

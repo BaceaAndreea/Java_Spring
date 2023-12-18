@@ -8,10 +8,11 @@ import java.util.List;
 
 
 public class PatientIteratorImpl implements PatientIterator<Patient> {
-    private List<Patient> patients;
+    private final Iterable<Patient> patients;
+    private Iterator<Patient> iterator;
     private int index;
 
-    public PatientIteratorImpl(List<Patient> patients) {
+    public PatientIteratorImpl(Iterable<Patient> patients) {
         this.patients = patients;
         this.index = 0;
     }

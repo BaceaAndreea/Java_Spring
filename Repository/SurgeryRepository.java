@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SurgeryRepository extends CrudRepository<Surgery, Integer> {
 
-    public Surgery findByIdentifier(int patientID, int doctorID, String date, int diseaseID);
+    public Surgery findBySurgeryID(int surgeryID);
 
 }

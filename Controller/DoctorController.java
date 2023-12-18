@@ -50,7 +50,7 @@ public class DoctorController {
     }
 
 
-    @GetMapping("/update/{doctorID}")
+    @GetMapping("/update/{doctorID}/ {newObject}")
     public void update(@PathVariable int doctorID, @RequestBody Doctor newObject) {
         Doctor existingDoctor = service.get(doctorID);
         if (existingDoctor != null) {

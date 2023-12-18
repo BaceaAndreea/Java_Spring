@@ -2,6 +2,7 @@ package map.project.demo.Controller;
 
 import map.project.demo.Domain.Specialization;
 import map.project.demo.Repository.SpecializationRepository;
+import map.project.demo.Service.SpecializationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,38 +12,34 @@ import java.util.List;
 @RestController
 public class SpecializationController {
     @Autowired
-    private final SpecializationRepository specializationRepository;
+    private SpecializationService service;
 
-    public SpecializationController(SpecializationRepository specializationRepository) {
-        this.specializationRepository = specializationRepository;
-    }
-
-    @PostMapping("/add")
+    @PostMapping("/addSpecialization")
     public void add(@RequestBody Specialization specialization) {
-        specializationRepository.save(specialization);
+        service.save(specialization);
     }
 
-    @GetMapping("/findByIdentifier/{specializationID}")
+    @GetMapping("/findByIdentifierSpecialization/{specializationID}")
     public Specialization findSpecializationByIdentifier(@PathVariable int specializationID) {
-        return specializationRepository.findByIdentifier(specializationID);
+        return service.get(specializationID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllSpecializations")
     public List<Specialization> getAll() {
-        return (List<Specialization>) specializationRepository.findAll();
+        return service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllSpecializations")
     public void printAll() {
-        List<Specialization> specializations = (List<Specialization>) specializationRepository.findAll();
+        List<Specialization> specializations = service.listAll();
         specializations.forEach(specialization -> System.out.println(specialization.toString()));
     }
 
-    @GetMapping("/delete/{specializationID}")
+    @GetMapping("/deleteSpecialization/{specializationID}")
     public void delete(@PathVariable int specializationID) {
-        Specialization specialization = specializationRepository.findByIdentifier(specializationID);
+        Specialization specialization = service.get(specializationID);
         if (specialization != null) {
-            specializationRepository.delete(specialization);
+            service.delete(specializationID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
@@ -50,7 +47,7 @@ public class SpecializationController {
 
     @GetMapping("/updateSpecialization/{specializationID}/{newObject}")
     public void update(@PathVariable int specializationID, @RequestBody Specialization newObject) {
-        Specialization existingSpecialization = specializationRepository.findByIdentifier(specializationID);
+        Specialization existingSpecialization = service.get(specializationID);
         if (existingSpecialization != null) {
             delete(specializationID);
             add(newObject);

@@ -27,15 +27,10 @@ public class ReadFromUserConsultation implements UI.ReadFromUserInterface {
         newConsutation.setPrice(Integer.parseInt(scanner.nextLine()));
         return newConsutation;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the Patient: ");
-        newObjectData.add(scanner.nextLine());
-        System.out.print("ID of the Doctor: ");
-        newObjectData.add(scanner.nextLine());
-        System.out.println("Date: ");
-        return newObjectData;
+        System.out.print("ID of the consultation (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

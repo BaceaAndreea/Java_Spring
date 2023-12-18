@@ -9,8 +9,6 @@ public class ReadFromUserCabinet implements UI.ReadFromUserInterface {
     public static Cabinet readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
         Cabinet newCabinet = new Cabinet();
-        System.out.print("ID of the cabinet (FORMAT DDDD WHERE D- DIGIT): ");
-        newCabinet.setCabinetID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the cabinet: ");
         newCabinet.setName(scanner.nextLine());
         return newCabinet;

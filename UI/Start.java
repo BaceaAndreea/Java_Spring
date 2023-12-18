@@ -6,30 +6,24 @@ import map.project.demo.Factory.ECardFactory;
 import map.project.demo.Factory.HealthCardFactory;
 import map.project.demo.Factory.PaperCardFactory;
 import map.project.demo.Repository.*;
+import map.project.demo.Service.DoctorService;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Start {
-
-    public static DoctorRepository doctorRepository;
-    public static PatientRepository patientRepository;
-    public static MedicationRepository medicationRepository;
-    public static SurgeryRepository surgeryRepository;
-    public static SpecializationRepository specializationRepository;
-    public static DiseaseRepository diseaseRepository;
-    public static ConsultationRepository consultationRepository;
-    public static CabinetRepository cabinetRepository;
-    public static HospitalRepository hospitalRepository;
-    public static DoctorController doctorController = new DoctorController(doctorRepository);
-    public static PatientController patientController = new PatientController(patientRepository);
-    public static MedicationController medicationController = new MedicationController(medicationRepository);
-    public static SurgeryController surgeryController = new SurgeryController(surgeryRepository);
-    public static SpecializationController specializationController = new SpecializationController(specializationRepository);
-    public static DiseaseController diseaseController = new DiseaseController(diseaseRepository);
-    public static ConsultationController consultationController = new ConsultationController(consultationRepository);
-    public static CabinetController cabinetController = new CabinetController(cabinetRepository);
-    public static HospitalController hospitalController = new HospitalController(hospitalRepository);
+    public static DoctorRepository doctorRepository ;
+    public static DoctorService doctorService = new DoctorService(doctorRepository);
+    public static DoctorController doctorController = new DoctorController(doctorService);
+    public static PatientController patientController = new PatientController();
+    public static MedicationController medicationController = new MedicationController();
+    public static SurgeryController surgeryController = new SurgeryController();
+    public static SpecializationController specializationController = new SpecializationController();
+    public static DiseaseController diseaseController = new DiseaseController();
+    public static ConsultationController consultationController = new ConsultationController();
+    public static CabinetController cabinetController = new CabinetController();
+    public static HospitalController hospitalController = new HospitalController();
     public static HealthCardFactory<ECard> eCardFactory = new ECardFactory();
     public static PaperCardFactory paperCardFactory = new PaperCardFactory();
     //public static HealthCardRepository healthCardRepository = HealthCardRepository.getInstance(eCardFactory, paperCardFactory);
@@ -139,8 +133,7 @@ public class Start {
                 medicationController.update(ReadFromUserMedicine.readIdentifier(), ReadFromUserMedicine.readNewObjectData());
                 break;
             case 4:
-                ArrayList <String> identifier = ReadFromUserSurgery.readIdentifier();
-                surgeryController.update(Integer.parseInt(identifier.get(0)), Integer.parseInt(identifier.get(1)), identifier.get(2), Integer.parseInt(identifier.get(3)), ReadFromUserSurgery.readNewObjectData());
+                surgeryController.update(ReadFromUserSurgery.readIdentifier(), ReadFromUserSurgery.readNewObjectData());
                 break;
             case 5:
                 specializationController.update(ReadFromUserSpecialization.readIdentifier(), ReadFromUserSpecialization.readNewObjectData());
@@ -152,8 +145,7 @@ public class Start {
                 cabinetController.update(ReadFromUserCabinet.readIdentifier(), ReadFromUserCabinet.readNewObjectData());
                 break;
             case 8:
-                ArrayList <String> identifier2 = ReadFromUserSurgery.readIdentifier();
-                consultationController.update(Integer.parseInt(identifier2.get(0)), Integer.parseInt(identifier2.get(1)), identifier2.get(2), ReadFromUserConsultation.readNewObjectData());
+                consultationController.update(ReadFromUserConsultation.readIdentifier(), ReadFromUserConsultation.readNewObjectData());
                 break;
             case 9:
                 hospitalController.update(ReadFromUserHospital.readIdentifier(), ReadFromUserHospital.readNewObjectData());
@@ -178,8 +170,7 @@ public class Start {
                 medicationController.delete(ReadFromUserMedicine.readIdentifier());
                 break;
             case 4:
-                ArrayList <String> identifier3 = ReadFromUserSurgery.readIdentifier();
-                surgeryController.delete(Integer.parseInt(identifier3.get(0)), Integer.parseInt(identifier3.get(1)), identifier3.get(2), Integer.parseInt(identifier3.get(3)));
+                surgeryController.delete(ReadFromUserSurgery.readIdentifier());
                 break;
             case 5:
                 specializationController.delete(ReadFromUserSpecialization.readIdentifier());
@@ -191,8 +182,7 @@ public class Start {
                 cabinetController.delete(ReadFromUserCabinet.readIdentifier());
                 break;
             case 8:
-                ArrayList <String> identifier4 = ReadFromUserSurgery.readIdentifier();
-                consultationController.delete(Integer.parseInt(identifier4.get(0)), Integer.parseInt(identifier4.get(1)), identifier4.get(2));
+                consultationController.delete(ReadFromUserConsultation.readIdentifier());
                 break;
             case 9:
                 hospitalController.delete(ReadFromUserHospital.readIdentifier());
@@ -241,9 +231,6 @@ public class Start {
         Scanner scanner = new Scanner(System.in);
         System.out.println("First we want to get to know you. Which is your patientID?");
         int identifier6 = Integer.parseInt(scanner.nextLine());
-        if(patientRepository.findByIdentifier(identifier6) == null)
-            System.out.println("Sorry, no such patient was found.");
-        else{
             boolean runMenu = true;
 
             while (runMenu) {
@@ -273,7 +260,6 @@ public class Start {
                 }
             }
         }
-    }
 
     public static void DisplayMenu1() {
         System.out.println("1. Doctor.");
