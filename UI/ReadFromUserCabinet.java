@@ -1,24 +1,24 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Cabinet;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserCabinet implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserCabinet implements UI.ReadFromUserInterface {
+    public static Cabinet readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the cabinet (FORMAT 9DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        Cabinet newCabinet = new Cabinet();
+        System.out.print("ID of the cabinet (FORMAT DDDD WHERE D- DIGIT): ");
+        newCabinet.setCabinetID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the cabinet: ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newCabinet.setName(scanner.nextLine());
+        return newCabinet;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the cabinet (FORMAT 9DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        System.out.print("ID of the cabinet (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

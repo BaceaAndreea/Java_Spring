@@ -1,28 +1,31 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Consultation;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
-public class ReadFromUserConsultation implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserConsultation implements UI.ReadFromUserInterface {
+    public static Consultation readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
+        Consultation newConsutation = new Consultation();
         System.out.print("ID of the patient (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newConsutation.setPatientID(Integer.parseInt(scanner.nextLine()));
         System.out.print("ID of the doctor (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newConsutation.setDoctorID(Integer.parseInt(scanner.nextLine()));
         System.out.println("Date of the consultation (FORMAT YYYY-MM-DD WHERE Y- YEAR, M- MONTH, D- DAY): ");
-        newObjectData.add(scanner.nextLine());
+        newConsutation.setDate(scanner.nextLine());
         System.out.println("ID of the disease (FORMAT DDDD WHERE D- DIGIT OR NULL): ");
-        newObjectData.add(scanner.nextLine());
+        newConsutation.setDiseaseID(Integer.parseInt(scanner.nextLine()));
         System.out.println("HealthCard ownership by the patient (FORMAT true/false): ");
-        newObjectData.add(scanner.nextLine());
+        if(scanner.nextLine().equalsIgnoreCase("TRUE"))
+            newConsutation.setCard(true);
+        else
+            newConsutation.setCard(false);
         System.out.println("Price of the consult: ");
-        newObjectData.add(scanner.nextLine());
-
-
-
-        return newObjectData;
+        newConsutation.setPrice(Integer.parseInt(scanner.nextLine()));
+        return newConsutation;
     }
     public static ArrayList<String> readIdentifier() {
         Scanner scanner = new Scanner(System.in);

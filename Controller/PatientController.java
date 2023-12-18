@@ -1,47 +1,75 @@
-package Controller;
+package map.project.demo.Controller;
 
-import Domain.Patient;
-import Iterator.PatientIterator;
-import Repository.PatientRepository;
+import map.project.demo.Domain.Patient;
+import map.project.demo.Domain.PatientIteratorImpl;
+import map.project.demo.Iterator.PatientIterator;
+import map.project.demo.Repository.PatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class PatientController implements ControllerInterface<Patient> {
+@RestController
+public class PatientController {
+    @Autowired
     private final PatientRepository patientRepository;
+
     public PatientController(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
-    @Override
-    public void add(ArrayList<String> newObjectData){
-        Patient newObject= new Patient(Integer.parseInt(newObjectData.get(0)), newObjectData.get(1), newObjectData.get(2), newObjectData.get(3), newObjectData.get(4), Integer.parseInt(newObjectData.get(5)));
-        patientRepository.add(newObject);
+
+    @PostMapping("/add")
+    public void add(@RequestBody Patient patient) {
+        patientRepository.save(patient);
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if(patientRepository.findByIdentifier(identifier) != null) {
-            patientRepository.delete(patientRepository.findByIdentifier(identifier));
-        }
-        else {
+    @GetMapping("/findByIdentifier/{patientID}}")
+    public Patient findPatientByIdentifier(@PathVariable int patientID) {
+        return patientRepository.findByIdentifier(patientID);
+    }
+
+    @GetMapping("/getAll")
+    public List<Patient> getAll() {
+        return (List<Patient>) patientRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Patient> patients = (List<Patient>) patientRepository.findAll();
+        patients.forEach(patient -> System.out.println(patient.toString()));
+    }
+
+    @GetMapping("/delete/{patientID}")
+    public void delete(@PathVariable int patientID) {
+        Patient patient = patientRepository.findByIdentifier(patientID);
+        if (patient != null) {
+            patientRepository.delete(patient);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
-        if(patientRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
-        }
-        else{
+    @GetMapping("/update/{patientID}")
+    public void update(@PathVariable int patientID, @RequestBody Patient newObject) {
+        Patient existingPatient = patientRepository.findByIdentifier(patientID);
+        if (existingPatient != null) {
+            delete(patientID);
+            add(newObject);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-
-    @Override
-    public ArrayList<Patient> readAll(){
-        return patientRepository.readAll();
+    @GetMapping("createIterator")
+    public PatientIterator createIterator() {
+        List<Patient> patients = getAll();
+        PatientIteratorImpl iterator = new PatientIteratorImpl(patients);
+        return iterator;
     }
 
+
+    @GetMapping("iteratePatients")
     public void iteratePatients() {
         PatientIterator<Patient> iterator = patientRepository.createIterator();
         while (iterator.hasNext()) {
@@ -49,5 +77,4 @@ public class PatientController implements ControllerInterface<Patient> {
             System.out.println(patient);
         }
     }
-
 }

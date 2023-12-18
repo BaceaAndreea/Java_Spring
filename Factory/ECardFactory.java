@@ -1,7 +1,7 @@
-package Factory;
+package map.project.demo.Factory;
 
-import Domain.ECard;
-import Domain.HealthCard;
+import map.project.demo.Domain.ECard;
+import map.project.demo.Domain.HealthCard;
 
 import java.util.ArrayList;
 

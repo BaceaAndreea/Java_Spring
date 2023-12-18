@@ -1,30 +1,30 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Medication;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserMedicine implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserMedicine implements UI.ReadFromUserInterface {
+    public static Medication readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the medicine (FORMAT gDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        Medication newMedication = new Medication();
+        System.out.print("ID of the medicine (FORMAT DDDD WHERE D- DIGIT): ");
+        newMedication.setMedicationID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the medicine: ");
-        newObjectData.add(scanner.nextLine());
+        newMedication.setName(scanner.nextLine());
         System.out.print("Way of administration: ");
-        newObjectData.add(scanner.nextLine());
+        newMedication.setAdministrationRoute(scanner.nextLine());
         System.out.print("Quantity in storage: ");
-        newObjectData.add(scanner.nextLine());
+        newMedication.setStorageAmount(Integer.parseInt(scanner.nextLine()));
         System.out.print("Expiring date (FORMAT YYYY-MM-DD WHERE Y- YEAR, M- MONTH, D- DAY): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newMedication.setExpirationDate(scanner.nextLine());
+        return newMedication;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the medicine (FORMAT 6DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        System.out.print("ID of the medicine (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

@@ -1,43 +1,61 @@
-package Controller;
+package map.project.demo.Controller;
 
-import Domain.Hospital;
-import Repository.HospitalRepository;
-import java.util.ArrayList;
+import map.project.demo.Domain.Hospital;
+import map.project.demo.Repository.HospitalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-public class HospitalController implements ControllerInterface<Hospital> {
+import java.util.List;
+
+@RestController
+public class HospitalController {
+    @Autowired
     private final HospitalRepository hospitalRepository;
+
     public HospitalController(HospitalRepository hospitalRepository) {
         this.hospitalRepository = hospitalRepository;
     }
-    @Override
-    public void add(ArrayList<String> newObjectData){
-        Hospital newObject= new Hospital(Integer.parseInt(newObjectData.get(0)), newObjectData.get(1), Integer.parseInt(newObjectData.get(2)));
-        hospitalRepository.add(newObject);
+
+    @PostMapping("/add")
+    public void add(@RequestBody Hospital hospital) {
+        hospitalRepository.save(hospital);
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if(hospitalRepository.findByIdentifier(identifier) != null) {
-            hospitalRepository.delete(hospitalRepository.findByIdentifier(identifier));
-        }
-        else {
+    @GetMapping("/findByIdentifier/{hospitalID}")
+    public Hospital findHospitalByIdentifier(@PathVariable int hospitalID) {
+        return hospitalRepository.findByIdentifier(hospitalID);
+    }
+
+    @GetMapping("/getAll")
+    public List<Hospital> getAll() {
+        return (List<Hospital>) hospitalRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Hospital> hospitals = (List<Hospital>) hospitalRepository.findAll();
+        hospitals.forEach(hospital -> System.out.println(hospital.toString()));
+    }
+
+    @GetMapping("/delete/{hospitalID}}")
+    public void delete(@PathVariable int hospitalID) {
+        Hospital hospital = hospitalRepository.findByIdentifier(hospitalID);
+        if (hospital != null) {
+            hospitalRepository.delete(hospital);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
-        if(hospitalRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
-        }
-        else{
+    @GetMapping("/update/{hospitalID}")
+    public void update(@PathVariable int hospitalID, @RequestBody Hospital newObject) {
+        Hospital existingHospital = hospitalRepository.findByIdentifier(hospitalID);
+        if (existingHospital != null) {
+            delete(hospitalID);
+            add(newObject);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
-    }
-
-    @Override
-    public ArrayList<Hospital> readAll(){
-        return hospitalRepository.readAll();
     }
 }

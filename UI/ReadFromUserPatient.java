@@ -1,32 +1,33 @@
-package UI;
+package map.project.demo.UI;
 
+import map.project.demo.Domain.Patient;
+
+import java.io.IOError;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserPatient implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserPatient implements UI.ReadFromUserInterface {
+    public static Patient readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the patient (FORMAT 3DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        Patient newPatient = new Patient();
+        System.out.print("ID of the patient (FORMAT DDDD WHERE D- DIGIT): ");
+        newPatient.setPatientID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Last name of the patient: ");
-        newObjectData.add(scanner.nextLine());
+        newPatient.setName(scanner.nextLine());
         System.out.print("First name of the patient: ");
-        newObjectData.add(scanner.nextLine());
+        newPatient.setFirstName(scanner.nextLine());
         System.out.print("Birthday of the patient (FORMAT YYYY-MM-DD WHERE Y- YEAR, M- MONTH, D- DAY): ");
-        newObjectData.add(scanner.nextLine());
+        newPatient.setBirthdate(scanner.nextLine());
         System.out.print("Phone number of the patient (FORMAT 555-DDDD-DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        System.out.print("ID of the healthCard of the patient (FORMAT 4DDD WHERE D- DIGIT OR NULL): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newPatient.setContactPhone(scanner.nextLine());
+        System.out.print("ID of the healthCard of the patient (FORMAT DDDD WHERE D- DIGIT OR NULL): ");
+        newPatient.setCardID(Integer.parseInt(scanner.nextLine()));
+        return newPatient;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the Patient (FORMAT 3DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        System.out.print("ID of the Patient (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

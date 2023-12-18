@@ -1,4 +1,4 @@
-package Decorator;
+package map.project.demo.Decorator;
 
 public interface Decorator {
     void displayDetails(Object object);

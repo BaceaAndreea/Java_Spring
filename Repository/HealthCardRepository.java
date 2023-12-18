@@ -1,4 +1,5 @@
-package Repository;
+
+/*package map.project.demo.Repository;
 
 import Databasesql.Databasesql;
 import Domain.ECard;
@@ -7,12 +8,14 @@ import Domain.HealthCard;
 import Factory.ECardFactory;
 import Factory.HealthCardFactory;
 import Factory.PaperCardFactory;
+import map.project.demo.Factory.PaperCardFactory;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class HealthCardRepository extends Databasesql implements RepositoryInterface<HealthCard> {
+public class HealthCardRepository{
     private final ArrayList<HealthCard> healthCards = new ArrayList<>();
     private final HealthCardFactory<ECard> eCardFactory ;
     private final HealthCardFactory<PaperCard> paperCardFactory;
@@ -23,7 +26,7 @@ public class HealthCardRepository extends Databasesql implements RepositoryInter
     }
 
     // Metodă publică pentru a obține instanța unică
-    public static HealthCardRepository getInstance(HealthCardFactory<ECard> eCardFactory, HealthCardFactory<PaperCard> paperCardFactory) {
+    public static HealthCardRepository getInstance(HealthCardFactory<ECard> eCardFactory, PaperCardFactory paperCardFactory) {
         if (instance == null) {
             instance = new HealthCardRepository(eCardFactory, paperCardFactory);
         }
@@ -165,3 +168,4 @@ public class HealthCardRepository extends Databasesql implements RepositoryInter
         return paperCardFactory.create(paperCardData);
     }
 }
+*/

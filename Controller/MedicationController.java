@@ -1,43 +1,61 @@
-package Controller;
+package map.project.demo.Controller;
 
-import Domain.Medication;
-import Repository.MedicationRepository;
-import java.util.ArrayList;
+import map.project.demo.Domain.Medication;
+import map.project.demo.Repository.MedicationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-public class MedicationController implements ControllerInterface<Medication> {
+import java.util.List;
+
+@RestController
+public class MedicationController {
+    @Autowired
     private final MedicationRepository medicationRepository;
+
     public MedicationController(MedicationRepository medicationRepository) {
         this.medicationRepository = medicationRepository;
     }
-    @Override
-    public void add(ArrayList<String> newObjectData){
-        Medication newObject= new Medication(Integer.parseInt(newObjectData.get(0)), newObjectData.get(1), newObjectData.get(2), Integer.parseInt(newObjectData.get(3)), newObjectData.get(4));
-        medicationRepository.add(newObject);
+
+    @PostMapping("/add")
+    public void add(@RequestBody Medication medication) {
+        medicationRepository.save(medication);
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if(medicationRepository.findByIdentifier(identifier) != null) {
-            medicationRepository.delete(medicationRepository.findByIdentifier(identifier));
-        }
-        else {
+    @GetMapping("/findByIdentifier/{medicationID}")
+    public Medication findMedicationByIdentifier(@PathVariable int medicationID) {
+        return medicationRepository.findByIdentifier(medicationID);
+    }
+
+    @GetMapping("/getAll")
+    public List<Medication> getAll() {
+        return (List<Medication>) medicationRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Medication> medications = (List<Medication>) medicationRepository.findAll();
+        medications.forEach(medication -> System.out.println(medication.toString()));
+    }
+
+    @GetMapping("/delete/{medicationID}")
+    public void delete(@PathVariable int medicationID) {
+        Medication medication = medicationRepository.findByIdentifier(medicationID);
+        if (medication != null) {
+            medicationRepository.delete(medication);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
-        if(medicationRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
-        }
-        else{
+    @GetMapping("/update/{medicationID}")
+    public void update(@PathVariable int medicationID, @RequestBody Medication newObject) {
+        Medication existingMedication = medicationRepository.findByIdentifier(medicationID);
+        if (existingMedication != null) {
+            delete(medicationID);
+            add(newObject);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
-    }
-
-    @Override
-    public ArrayList<Medication> readAll(){
-        return medicationRepository.readAll();
     }
 }

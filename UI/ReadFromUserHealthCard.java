@@ -1,9 +1,9 @@
-package UI;
+package map.project.demo.UI;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserHealthCard implements ReadFromUserInterface {
+public class ReadFromUserHealthCard implements UI.ReadFromUserInterface {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static ArrayList<String> readECardData() {

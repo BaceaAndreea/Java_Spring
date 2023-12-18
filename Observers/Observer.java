@@ -1,4 +1,4 @@
-package Observers;
+package map.project.demo.Observers;
 
 
 public interface Observer {

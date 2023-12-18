@@ -1,6 +1,5 @@
 package map.project.demo.Controller;
 
-import map.project.demo.Domain.Cabinet;
 import map.project.demo.Domain.Disease;
 import map.project.demo.Repository.DiseaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController 
 @RequestMapping("/api/diseases")
 public class DiseaseController {
 
@@ -25,9 +24,9 @@ public class DiseaseController {
         diseaseRepository.save(disease);
     }
 
-    @GetMapping("/findByIdentifier/{identifier}")
-    public Disease findDiseaseByIdentifier(@PathVariable String identifier) {
-        return diseaseRepository.findByIdentifier(identifier);
+    @GetMapping("/findByIdentifier/{diseaseID}")
+    public Disease findDiseaseByIdentifier(@PathVariable int diseaseID) {
+        return diseaseRepository.findByIdentifier(diseaseID);
     }
 
     @GetMapping("/getAll")
@@ -41,9 +40,9 @@ public class DiseaseController {
         diseases.forEach(disease -> System.out.println(disease.toString()));
     }
 
-    @GetMapping("/delete/{identifier}")
-    public void delete(@PathVariable String identifier) {
-        Disease disease = diseaseRepository.findByIdentifier(identifier);
+    @GetMapping("/delete/{diseaseID}")
+    public void delete(@PathVariable int diseaseID) {
+        Disease disease = diseaseRepository.findByIdentifier(diseaseID);
         if (disease != null) {
             diseaseRepository.delete(disease);
         } else {
@@ -51,11 +50,11 @@ public class DiseaseController {
         }
     }
 
-    @GetMapping("/update/{identifier}")
-    public void update(@PathVariable String identifier, @RequestBody Disease newObject) {
-        Disease existingDisease = diseaseRepository.findByIdentifier(identifier);
+    @GetMapping("/update/{diseaseID}")
+    public void update(@PathVariable int diseaseID, @RequestBody Disease newObject) {
+        Disease existingDisease = diseaseRepository.findByIdentifier(diseaseID);
         if (existingDisease != null) {
-            delete(identifier);
+            delete(diseaseID);
             add(newObject);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");

@@ -1,36 +1,36 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Doctor;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserDoctor implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserDoctor implements UI.ReadFromUserInterface {
+    public static Doctor readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the doctor (FORMAT 1DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        Doctor newDoctor = new Doctor();
+        System.out.print("ID of the doctor (FORMAT DDDD WHERE D- DIGIT): ");
+        newDoctor.setDoctorID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Last name of the doctor: ");
-        newObjectData.add(scanner.nextLine());
+        newDoctor.setName(scanner.nextLine());
         System.out.print("First name of the doctor: ");
-        newObjectData.add(scanner.nextLine());
+        newDoctor.setFirstName(scanner.nextLine());
         System.out.print("Birthday of the doctor (FORMAT YYYY-MM-DD WHERE Y- YEAR, M- MONTH, D- DAY): ");
-        newObjectData.add(scanner.nextLine());
-        System.out.print("ID of the hospital (FORMAT 5DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newDoctor.setBirthdate(scanner.nextLine());
+        System.out.print("ID of the hospital (FORMAT DDDD WHERE D- DIGIT): ");
+        newDoctor.setHospitalID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Phone number of the doctor (FORMAT 555-DDDD-DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newDoctor.setContactPhone(scanner.nextLine());
         System.out.print("ID of the specialization of the Doctor (FORMAT 2DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newDoctor.setSpecializationID(Integer.parseInt(scanner.nextLine()));
         System.out.print("ID of the cabinet of the Doctor (FORMAT 9DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newDoctor.setCabinetID(Integer.parseInt(scanner.nextLine()));
+        return newDoctor;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the Doctor (FORMAT 1DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        System.out.print("ID of the Doctor (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

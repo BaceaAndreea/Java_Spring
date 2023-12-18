@@ -1,26 +1,26 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Hospital;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserHospital implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserHospital implements UI.ReadFromUserInterface {
+    public static Hospital readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
+        Hospital newHospital = new Hospital();
         System.out.print("ID of the hospital (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        newHospital.setHospitalID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the hospital: ");
-        newObjectData.add(scanner.nextLine());
+        newHospital.setName(scanner.nextLine());
         System.out.println("Capacity (NUMBER OF BEDS): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newHospital.setCapacity(Integer.parseInt(scanner.nextLine()));
+        return newHospital;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
         System.out.print("ID of the hospital (FORMAT DDDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

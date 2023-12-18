@@ -1,24 +1,24 @@
-package UI;
+package map.project.demo.UI;
+
+import map.project.demo.Domain.Disease;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFromUserDisease implements ReadFromUserInterface {
-    public static ArrayList<String> readNewObjectData() {
+public class ReadFromUserDisease implements UI.ReadFromUserInterface {
+    public static Disease readNewObjectData() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the disease (FORMAT 7DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
+        Disease newDisease = new Disease();
+        System.out.print("ID of the disease (FORMAT DDDD WHERE D- DIGIT): ");
+        newDisease.setDiseaseID(Integer.parseInt(scanner.nextLine()));
         System.out.print("Name of the disease: ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        newDisease.setName(scanner.nextLine());
+        return newDisease;
     }
-    public static ArrayList<String> readIdentifier() {
+    public static int readIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> newObjectData = new ArrayList<String>();
-        System.out.print("ID of the disease (FORMAT 7DDD WHERE D- DIGIT): ");
-        newObjectData.add(scanner.nextLine());
-        return newObjectData;
+        System.out.print("ID of the disease (FORMAT DDDD WHERE D- DIGIT): ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CabinetRepository extends CrudRepository<Cabinet, Integer> {
 
-    public Cabinet findByIdentifier(String identifier);
+    public Cabinet findByIdentifier(int cabinetID);
 
 }

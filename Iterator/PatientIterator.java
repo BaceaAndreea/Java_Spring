@@ -1,6 +1,7 @@
-package Iterator;
+package map.project.demo.Iterator;
 
-import Domain.Patient;
+import map.project.demo.Domain.Patient;
+
 public interface PatientIterator<T> {
     boolean hasNext();
     T next();

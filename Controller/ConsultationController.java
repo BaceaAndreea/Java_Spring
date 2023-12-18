@@ -1,56 +1,61 @@
 package map.project.demo.Controller;
-import Observers.*;
 
-import Domain.Consultation;
-import Repository.ConsultationRepository;
-import java.util.ArrayList;
+import map.project.demo.Domain.Consultation;
+import map.project.demo.Repository.ConsultationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-public class ConsultationController implements ControllerInterface<Consultation>, Observer{
+import java.util.List;
+
+@RestController
+public class ConsultationController {
+    @Autowired
     private final ConsultationRepository consultationRepository;
-
 
     public ConsultationController(ConsultationRepository consultationRepository) {
         this.consultationRepository = consultationRepository;
     }
 
-    @Override
-    public void add(ArrayList<String> newObjectData) {
-        Consultation newObject = new Consultation(Integer.parseInt(newObjectData.get(0)), Integer.parseInt(newObjectData.get(1)), newObjectData.get(2), Integer.parseInt(newObjectData.get(3)), Integer.parseInt(newObjectData.get(5)));
-        consultationRepository.add(newObject);
-        newObject.addObserver(this);
-        newObject.notifyObservers();
-
+    @PostMapping("/add")
+    public void add(@RequestBody Consultation consultation) {
+        consultationRepository.save(consultation);
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if (consultationRepository.findByIdentifier(identifier) != null) {
-            consultationRepository.findByIdentifier(identifier).removeObserver(this);
-            consultationRepository.delete(consultationRepository.findByIdentifier(identifier));
+    @GetMapping("/findByIdentifier/{patientID, doctorID, date}")
+    public Consultation findConsultationByIdentifier(@PathVariable int patientID, int doctorID, String date) {
+        return consultationRepository.findByIdentifier(patientID, doctorID, date);
+    }
+
+    @GetMapping("/getAll")
+    public List<Consultation> getAll() {
+        return (List<Consultation>) consultationRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Consultation> consultations = (List<Consultation>) consultationRepository.findAll();
+        consultations.forEach(consultation -> System.out.println(consultation.toString()));
+    }
+
+    @DeleteMapping("/delete/{patientID, doctorID, date}")
+    public void delete(@PathVariable int patientID, int doctorID, String date) {
+        Consultation consultation = consultationRepository.findByIdentifier(patientID, doctorID, date);
+        if (consultation != null) {
+            consultationRepository.delete(consultation);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
-        if (consultationRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
+    @GetMapping("/update/{patientID, doctorID, date}")
+    public void update(@PathVariable int patientID, int doctorID, String date, @RequestBody Consultation newObject) {
+        Consultation existingConsultation = consultationRepository.findByIdentifier(patientID, doctorID, date);
+        if (existingConsultation != null) {
+            delete(patientID, doctorID, date);
+            add(newObject);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-
-    @Override
-    public ArrayList<Consultation> readAll() {
-        return consultationRepository.readAll();
-    }
-
-    @Override
-    public void updateObservers(int patientID){
-        System.out.println("Patient with the ID "+patientID+" has been scheduled for a consult.");
-    }
-
-//
 }

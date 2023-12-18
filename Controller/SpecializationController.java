@@ -1,43 +1,61 @@
-package Controller;
+package map.project.demo.Controller;
 
-import Domain.Specialization;
-import Repository.SpecializationRepository;
-import java.util.ArrayList;
+import map.project.demo.Domain.Specialization;
+import map.project.demo.Repository.SpecializationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-public class SpecializationController implements ControllerInterface<Specialization> {
+import java.util.List;
+
+@RestController
+public class SpecializationController {
+    @Autowired
     private final SpecializationRepository specializationRepository;
+
     public SpecializationController(SpecializationRepository specializationRepository) {
         this.specializationRepository = specializationRepository;
     }
-    @Override
-    public void add(ArrayList<String> newObjectData){
-        Specialization newObject= new Specialization(Integer.parseInt(newObjectData.get(0)), newObjectData.get(1));
-        specializationRepository.add(newObject);
+
+    @PostMapping("/add")
+    public void add(@RequestBody Specialization specialization) {
+        specializationRepository.save(specialization);
     }
 
-    @Override
-    public void delete(ArrayList<String> identifier) {
-        if(specializationRepository.findByIdentifier(identifier) != null) {
-            specializationRepository.delete(specializationRepository.findByIdentifier(identifier));
-        }
-        else {
+    @GetMapping("/findByIdentifier/{specializationID}")
+    public Specialization findSpecializationByIdentifier(@PathVariable int specializationID) {
+        return specializationRepository.findByIdentifier(specializationID);
+    }
+
+    @GetMapping("/getAll")
+    public List<Specialization> getAll() {
+        return (List<Specialization>) specializationRepository.findAll();
+    }
+
+    @GetMapping("/printAll")
+    public void printAll() {
+        List<Specialization> specializations = (List<Specialization>) specializationRepository.findAll();
+        specializations.forEach(specialization -> System.out.println(specialization.toString()));
+    }
+
+    @GetMapping("/delete/{specializationID}")
+    public void delete(@PathVariable int specializationID) {
+        Specialization specialization = specializationRepository.findByIdentifier(specializationID);
+        if (specialization != null) {
+            specializationRepository.delete(specialization);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @Override
-    public void update(ArrayList<String> identifier, ArrayList<String> newObjectData) {
-        if(specializationRepository.findByIdentifier(identifier) != null) {
-            delete(identifier);
-            add(newObjectData);
-        }
-        else{
+    @GetMapping("/update/{specializationID}")
+    public void update(@PathVariable int specializationID, @RequestBody Specialization newObject) {
+        Specialization existingSpecialization = specializationRepository.findByIdentifier(specializationID);
+        if (existingSpecialization != null) {
+            delete(specializationID);
+            add(newObject);
+        } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
-    }
-
-    @Override
-    public ArrayList<Specialization> readAll(){
-        return specializationRepository.readAll();
     }
 }

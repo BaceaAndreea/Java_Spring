@@ -1,15 +1,16 @@
 package map.project.demo.Domain;
 
-import Iterator.PatientIterator;
+import map.project.demo.Iterator.PatientIterator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PatientIteratorImpl implements PatientIterator<Patient> {
-    private ArrayList<Patient> patients;
+    private List<Patient> patients;
     private int index;
 
-    public PatientIteratorImpl(ArrayList<Patient> patients) {
+    public PatientIteratorImpl(List<Patient> patients) {
         this.patients = patients;
         this.index = 0;
     }
