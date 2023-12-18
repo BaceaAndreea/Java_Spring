@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 public class DoctorController {
+    @Autowired
     private DoctorService service;
 
     @Autowired

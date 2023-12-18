@@ -11,16 +11,16 @@ import java.util.List;
 
 @Service
 public class DoctorService {
+    @Autowired
     private DoctorRepository doctorRepository;
 
     @Autowired
-    public DoctorService(@Qualifier("doctorRepository")DoctorRepository doctorRepository) {
+    public DoctorService(DoctorRepository doctorRepository) {
         this.doctorRepository = doctorRepository;
     }
     public List<Doctor> listAll() {
         return (List<Doctor>) doctorRepository.findAll();
     }
-
 
     public void save(Doctor doctor) {
         doctorRepository.save(doctor);
