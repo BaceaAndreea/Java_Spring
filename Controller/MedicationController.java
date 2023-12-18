@@ -14,28 +14,28 @@ import java.util.List;
 public class MedicationController {
     @Autowired private MedicationService service;
 
-    @PostMapping("/add")
+    @PostMapping("/addMedication")
     public void add(@RequestBody Medication medication) {
         medicationRepository.save(medication);
     }
 
-    @GetMapping("/findByIdentifier/{medicationID}")
+    @GetMapping("/findByIdentifierMedication/{medicationID}")
     public Medication findMedicationByIdentifier(@PathVariable int medicationID) {
         return medicationRepository.findByIdentifier(medicationID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllMedication")
     public List<Medication> getAll() {
         return service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllMedication")
     public void printAll() {
         List<Medication> medications = service.listAll();
         medications.forEach(medication -> System.out.println(medication.toString()));
     }
 
-    @GetMapping("/delete/{medicationID}")
+    @GetMapping("/deleteMedication/{medicationID}")
     public void delete(@PathVariable int medicationID) {
         Medication medication = service.get(medicationID);
         if (medication != null) {

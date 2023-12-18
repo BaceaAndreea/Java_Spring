@@ -31,7 +31,7 @@ public class HospitalController {
 
     @GetMapping("/printAll")
     public void printAll() {
-        List<Hospital> hospitals = (List<Hospital>) service.listAll();
+        List<Hospital> hospitals = service.listAll();
         hospitals.forEach(hospital -> System.out.println(hospital.toString()));
     }
 

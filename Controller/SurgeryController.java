@@ -1,7 +1,7 @@
 package map.project.demo.Controller;
 
 import map.project.demo.Domain.Surgery;
-import map.project.demo.Repository.SurgeryRepository;
+import map.project.demo.Service.SurgeryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,31 +10,25 @@ import java.util.List;
 
 @RestController
 public class SurgeryController {
-    @Autowired
-    private final SurgeryRepository surgeryRepository;
-
-    public SurgeryController(SurgeryRepository surgeryRepository) {
-        this.surgeryRepository = surgeryRepository;
-    }
-
-    @PostMapping("/add")
+    @Autowired private SurgeryService service;
+    @PostMapping("/addSurgery")
     public void add(@RequestBody Surgery surgery) {
-        surgeryRepository.save(surgery);
+        service.save(surgery);
     }
 
-    @GetMapping("/findByIdentifier/{patientID, doctorID, date, diseaseID}")
-    public Surgery findSurgeryByIdentifier(@PathVariable int patientID, int doctorID, String date, int diseaseID) {
-        return surgeryRepository.findByIdentifier(patientID, doctorID, date, diseaseID);
+    @GetMapping("/findByIdentifierSurgery/{surgeryID}")
+    public Surgery findSurgeryByIdentifier(@PathVariable int surgeryID) {
+        return service.get(surgeryID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllSurgery")
     public List<Surgery> getAll() {
         return (List<Surgery>) surgeryRepository.findAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllSurgery")
     public void printAll() {
-        List<Surgery> surgeries = (List<Surgery>) surgeryRepository.findAll();
+        List<Surgery> surgeries = service.listAll();
         surgeries.forEach(surgery -> System.out.println(surgery.toString()));
     }
 
@@ -42,15 +36,15 @@ public class SurgeryController {
     public void delete(@PathVariable int patientID, int doctorID, String date, int diseaseID) {
         Surgery surgery = surgeryRepository.findByIdentifier(patientID, doctorID, date, diseaseID);
         if (surgery != null) {
-            surgeryRepository.delete(surgery);
+            service.delete(surgeryID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/update/{patientID, doctorID, date, diseaseID}")
-    public void update(@PathVariable int patientID, int doctorID, String date, int diseaseID, @RequestBody Surgery newObject) {
-        Surgery existingSurgery = surgeryRepository.findByIdentifier(patientID, doctorID, date, diseaseID);
+    @GetMapping("/updateSurgery/{surgeryID}/{newObject}")
+    public void update(@PathVariable int surgeryID, @RequestBody Surgery newObject) {
+        Surgery existingSurgery = service.get(surgeryID);
         if (existingSurgery != null) {
             delete(patientID, doctorID, date, diseaseID);
             add(newObject);

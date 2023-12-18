@@ -48,7 +48,7 @@ public class SpecializationController {
         }
     }
 
-    @GetMapping("/update/{specializationID}")
+    @GetMapping("/updateSpecialization/{specializationID}/{newObject}")
     public void update(@PathVariable int specializationID, @RequestBody Specialization newObject) {
         Specialization existingSpecialization = specializationRepository.findByIdentifier(specializationID);
         if (existingSpecialization != null) {

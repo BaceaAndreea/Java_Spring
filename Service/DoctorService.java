@@ -4,14 +4,19 @@ import map.project.demo.Domain.Doctor;
 
 import map.project.demo.Repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class DoctorService {
-    @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    public DoctorService(@Qualifier("doctorRepository")DoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
+    }
     public List<Doctor> listAll() {
         return (List<Doctor>) doctorRepository.findAll();
     }

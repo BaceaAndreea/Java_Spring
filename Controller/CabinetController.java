@@ -44,7 +44,7 @@ public class CabinetController {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-    @GetMapping("/update/{cabinetID, newObject}")
+    @GetMapping("/updateCabinet/{cabinetID}/{newObject}")
     public void update(@PathVariable int cabinetID,@RequestBody Cabinet newObject) {
         if(service.get(cabinetID) != null) {
             delete(cabinetID);

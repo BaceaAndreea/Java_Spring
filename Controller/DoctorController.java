@@ -11,30 +11,35 @@ import java.util.List;
 
 @RestController
 public class DoctorController {
-    @Autowired private DoctorService service;
+    private DoctorService service;
 
-    @PostMapping("/add")
+    @Autowired
+    public DoctorController(DoctorService service) {
+        this.service = service;
+    }
+
+    @PostMapping("/addDoctor")
     public void add(@RequestBody Doctor doctor) {
         service.save(doctor);
     }
 
-    @GetMapping("/findByIdentifier/{doctorID}")
+    @GetMapping("/findByIdentifierDoctor/{doctorID}")
     public Doctor findDoctorByIdentifier(@PathVariable int doctorID) {
         return service.get(doctorID);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllDoctor")
     public List<Doctor> getAll() {
         return (List<Doctor>) service.listAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllDoctors")
     public void printAll() {
-        List<Doctor> doctors = (List<Doctor>) service.listAll();
+        List<Doctor> doctors =  service.listAll();
         doctors.forEach(doctor -> System.out.println(doctor.toString()));
     }
 
-    @GetMapping("/delete/{doctorID}")
+    @GetMapping("/deleteDoctor/{doctorID}")
     public void delete(@PathVariable int doctorID) {
         Doctor doctor = service.get(doctorID);
         if (doctor != null) {

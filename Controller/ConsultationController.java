@@ -17,7 +17,7 @@ public class ConsultationController {
         this.consultationRepository = consultationRepository;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addConsultation")
     public void add(@RequestBody Consultation consultation) {
         consultationRepository.save(consultation);
     }
@@ -27,12 +27,12 @@ public class ConsultationController {
         return consultationRepository.findByIdentifier(patientID, doctorID, date);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllConsultation")
     public List<Consultation> getAll() {
         return (List<Consultation>) consultationRepository.findAll();
     }
 
-    @GetMapping("/printAll")
+    @GetMapping("/printAllConsultation")
     public void printAll() {
         List<Consultation> consultations = (List<Consultation>) consultationRepository.findAll();
         consultations.forEach(consultation -> System.out.println(consultation.toString()));
