@@ -6,17 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import map.project.demo.Service.CabinetService;
 import java.util.List;
 
 @RestController
 public class CabinetController {
-    @Autowired
-    private final CabinetRepository cabinetRepository ;
-
-    public CabinetController(CabinetRepository cabinetRepository) {
-        this.cabinetRepository = cabinetRepository;
-    }
-
+    @Autowired private CabinetService service ;
 
     @PostMapping("/add")
     public void add(@RequestBody Cabinet cabinet) {
@@ -31,12 +26,12 @@ public class CabinetController {
 
     @GetMapping("/getAll")
     public List<Cabinet> getAll() {
-        return (List<Cabinet>) cabinetRepository.findAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAll")
     public void printAll() {
-        List<Cabinet> cabinets = (List<Cabinet>) cabinetRepository.findAll();
+        List<Cabinet> cabinets = service.listAll();
         cabinets.forEach(cabinet -> System.out.println(cabinet.toString()));
     }
 
@@ -49,9 +44,9 @@ public class CabinetController {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-    @GetMapping("/update/{cabinetID}")
+    @GetMapping("/update/{cabinetID, newObject}")
     public void update(@PathVariable int cabinetID,@RequestBody Cabinet newObject) {
-        if(cabinetRepository.findByIdentifier(cabinetID) != null) {
+        if(service.get(cabinetID) != null) {
             delete(cabinetID);
             add(newObject);
         }

@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
 
-    public Patient findByIdentifier(int patientID);
+    public Patient findByPatientID(int patientID);
 
-    PatientIterator<Patient> createIterator();
 }

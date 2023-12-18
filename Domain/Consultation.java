@@ -1,11 +1,9 @@
 package map.project.demo.Domain;
 
+import jakarta.persistence.*;
 import lombok.*;
 import map.project.demo.Observers.Observable;
 import map.project.demo.Observers.Observer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -20,11 +18,13 @@ import java.util.List;
 @ToString
 
 public class Consultation{// implements Observable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int consultationID;
     private int patientID;
-    @Id
+
     private int doctorID;
-    @Id
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String date;
     private int diseaseID;

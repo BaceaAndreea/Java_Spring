@@ -38,9 +38,9 @@ public class ConsultationController {
         consultations.forEach(consultation -> System.out.println(consultation.toString()));
     }
 
-    @DeleteMapping("/delete/{patientID, doctorID, date}")
-    public void delete(@PathVariable int patientID, int doctorID, String date) {
-        Consultation consultation = consultationRepository.findByIdentifier(patientID, doctorID, date);
+    @DeleteMapping("/delete/{consultationID}")
+    public void delete(@PathVariable int consultationID) {
+        Consultation consultation = service.get(consultationID);
         if (consultation != null) {
             consultationRepository.delete(consultation);
         } else {
@@ -48,9 +48,9 @@ public class ConsultationController {
         }
     }
 
-    @GetMapping("/update/{patientID, doctorID, date}")
-    public void update(@PathVariable int patientID, int doctorID, String date, @RequestBody Consultation newObject) {
-        Consultation existingConsultation = consultationRepository.findByIdentifier(patientID, doctorID, date);
+    @GetMapping("/update/{consultationID, newObject}")
+    public void update(@PathVariable int consultationID, @RequestBody Consultation newObject) {
+        Consultation existingConsultation = service.get(consultationID);
         if (existingConsultation != null) {
             delete(patientID, doctorID, date);
             add(newObject);

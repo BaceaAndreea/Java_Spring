@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface MedicationRepository extends CrudRepository<Medication, Integer> {
 
-    public Medication findByIdentifier(int medicationID);
+    public Medication findByMedicationID(int medicationID);
 
 }

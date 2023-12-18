@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface HospitalRepository extends CrudRepository<Hospital, Integer> {
 
-    public Hospital findByIdentifier(int hospitalID);
+    public Hospital findByHospitalID(int hospitalID);
 
 }

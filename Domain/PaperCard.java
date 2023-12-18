@@ -1,9 +1,6 @@
 package map.project.demo.Domain;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Table
@@ -15,6 +12,7 @@ import lombok.*;
 
 public class PaperCard extends HealthCard {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int writtenID;
 
     public PaperCard(String expirationDate, int pin, int writtenID) {

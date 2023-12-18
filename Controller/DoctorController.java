@@ -5,44 +5,40 @@ import map.project.demo.Repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import map.project.demo.Service.DoctorService;
 
 import java.util.List;
 
 @RestController
 public class DoctorController {
-    @Autowired
-    private final DoctorRepository doctorRepository;
-
-    public DoctorController(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
-    }
+    @Autowired private DoctorService service;
 
     @PostMapping("/add")
     public void add(@RequestBody Doctor doctor) {
-        doctorRepository.save(doctor);
+        service.save(doctor);
     }
 
     @GetMapping("/findByIdentifier/{doctorID}")
     public Doctor findDoctorByIdentifier(@PathVariable int doctorID) {
-        return doctorRepository.findByIdentifier(doctorID);
+        return service.get(doctorID);
     }
 
     @GetMapping("/getAll")
     public List<Doctor> getAll() {
-        return (List<Doctor>) doctorRepository.findAll();
+        return (List<Doctor>) service.listAll();
     }
 
     @GetMapping("/printAll")
     public void printAll() {
-        List<Doctor> doctors = (List<Doctor>) doctorRepository.findAll();
+        List<Doctor> doctors = (List<Doctor>) service.listAll();
         doctors.forEach(doctor -> System.out.println(doctor.toString()));
     }
 
     @GetMapping("/delete/{doctorID}")
     public void delete(@PathVariable int doctorID) {
-        Doctor doctor = doctorRepository.findByIdentifier(doctorID);
+        Doctor doctor = service.get(doctorID);
         if (doctor != null) {
-            doctorRepository.delete(doctor);
+            service.delete(doctorID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
@@ -51,7 +47,7 @@ public class DoctorController {
 
     @GetMapping("/update/{doctorID}")
     public void update(@PathVariable int doctorID, @RequestBody Doctor newObject) {
-        Doctor existingDoctor = doctorRepository.findByIdentifier(doctorID);
+        Doctor existingDoctor = service.get(doctorID);
         if (existingDoctor != null) {
             delete(doctorID);
             add(newObject);

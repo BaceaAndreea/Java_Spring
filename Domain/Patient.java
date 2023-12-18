@@ -1,10 +1,8 @@
 package map.project.demo.Domain;
+import jakarta.persistence.*;
 import lombok.*;
 import map.project.demo.Iterator.PatientIterator;
 import map.project.demo.Observers.Observer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 
 public class Patient{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int patientID;
     private String name;
     private String firstName;

@@ -3,6 +3,7 @@ package map.project.demo.Domain;
 import map.project.demo.Iterator.PatientIterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -17,13 +18,13 @@ public class PatientIteratorImpl implements PatientIterator<Patient> {
 
     @Override
     public boolean hasNext() {
-        return index < patients.size();
+        return iterator.hasNext();
     }
 
     @Override
     public Patient next() {
         if (this.hasNext()) {
-            return patients.get(index++);
+            return iterator.next();
         }
         return null;
     }

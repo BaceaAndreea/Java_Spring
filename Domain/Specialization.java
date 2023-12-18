@@ -1,8 +1,6 @@
 package map.project.demo.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -15,6 +13,7 @@ import lombok.*;
 
 public class Specialization {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int specializationID;
     private String name;
 }

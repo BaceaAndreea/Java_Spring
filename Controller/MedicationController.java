@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import map.project.demo.Service.MedicationService;
+
 import java.util.List;
 
 @RestController
 public class MedicationController {
-    @Autowired
-    private final MedicationRepository medicationRepository;
-
-    public MedicationController(MedicationRepository medicationRepository) {
-        this.medicationRepository = medicationRepository;
-    }
+    @Autowired private MedicationService service;
 
     @PostMapping("/add")
     public void add(@RequestBody Medication medication) {
@@ -29,18 +26,18 @@ public class MedicationController {
 
     @GetMapping("/getAll")
     public List<Medication> getAll() {
-        return (List<Medication>) medicationRepository.findAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAll")
     public void printAll() {
-        List<Medication> medications = (List<Medication>) medicationRepository.findAll();
+        List<Medication> medications = service.listAll();
         medications.forEach(medication -> System.out.println(medication.toString()));
     }
 
     @GetMapping("/delete/{medicationID}")
     public void delete(@PathVariable int medicationID) {
-        Medication medication = medicationRepository.findByIdentifier(medicationID);
+        Medication medication = service.get(medicationID);
         if (medication != null) {
             medicationRepository.delete(medication);
         } else {

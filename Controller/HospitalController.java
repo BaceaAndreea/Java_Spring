@@ -6,43 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import map.project.demo.Service.HospitalService;
+
 import java.util.List;
 
 @RestController
 public class HospitalController {
-    @Autowired
-    private final HospitalRepository hospitalRepository;
-
-    public HospitalController(HospitalRepository hospitalRepository) {
-        this.hospitalRepository = hospitalRepository;
-    }
+    @Autowired private HospitalService service;
 
     @PostMapping("/add")
     public void add(@RequestBody Hospital hospital) {
-        hospitalRepository.save(hospital);
+        service.save(hospital);
     }
 
     @GetMapping("/findByIdentifier/{hospitalID}")
     public Hospital findHospitalByIdentifier(@PathVariable int hospitalID) {
-        return hospitalRepository.findByIdentifier(hospitalID);
+        return service.get(hospitalID);
     }
 
     @GetMapping("/getAll")
     public List<Hospital> getAll() {
-        return (List<Hospital>) hospitalRepository.findAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAll")
     public void printAll() {
-        List<Hospital> hospitals = (List<Hospital>) hospitalRepository.findAll();
+        List<Hospital> hospitals = (List<Hospital>) service.listAll();
         hospitals.forEach(hospital -> System.out.println(hospital.toString()));
     }
 
     @GetMapping("/delete/{hospitalID}}")
     public void delete(@PathVariable int hospitalID) {
-        Hospital hospital = hospitalRepository.findByIdentifier(hospitalID);
+        Hospital hospital = service.get(hospitalID);
         if (hospital != null) {
-            hospitalRepository.delete(hospital);
+            service.delete(hospitalID);
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
@@ -50,7 +47,7 @@ public class HospitalController {
 
     @GetMapping("/update/{hospitalID}")
     public void update(@PathVariable int hospitalID, @RequestBody Hospital newObject) {
-        Hospital existingHospital = hospitalRepository.findByIdentifier(hospitalID);
+        Hospital existingHospital = service.get(hospitalID);
         if (existingHospital != null) {
             delete(hospitalID);
             add(newObject);
