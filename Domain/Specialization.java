@@ -5,12 +5,12 @@ import lombok.*;
 
 @Getter
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @ToString
 
+@Table (name = "specializations")
 public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

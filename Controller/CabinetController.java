@@ -11,7 +11,7 @@ import java.util.List;
 public class CabinetController {
     @Autowired private CabinetService service ;
 
-    @GetMapping("/addCabinet")
+    @PostMapping("/addCabinet")
     public String add(@RequestBody Cabinet cabinet) {
         service.save(cabinet);
         return "cabinets";

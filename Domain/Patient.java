@@ -8,12 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 @Getter
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @ToString
 
+@Table (name = "patients")
 public class Patient{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

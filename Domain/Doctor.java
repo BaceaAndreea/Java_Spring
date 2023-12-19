@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -15,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Builder
 @ToString
 
+@Table (name = "doctors")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

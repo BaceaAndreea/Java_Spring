@@ -6,12 +6,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @ToString
 
+@Table (name = "surgeries")
 public class Surgery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

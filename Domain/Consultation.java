@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @ToString
 
+@Table(name = "consultations")
 public class Consultation{// implements Observable {
 
     @Id

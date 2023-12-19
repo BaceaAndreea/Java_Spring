@@ -5,12 +5,12 @@ import lombok.*;
 
 @Getter
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @ToString
 
+@Table (name = "medications")
 public class Medication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
