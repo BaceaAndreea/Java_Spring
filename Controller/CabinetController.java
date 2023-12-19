@@ -15,7 +15,7 @@ public class CabinetController {
     @PostMapping("/addCabinet")
     public String add(@RequestBody Cabinet cabinet) {
         service.save(cabinet);
-        return "cabinets";
+        return "Added successfully.";
     }
 
     @GetMapping("/findByIdentifierCabinet/{cabinetID}")
@@ -29,16 +29,18 @@ public class CabinetController {
     }
 
     @GetMapping("/printAllCabinets")
-    public void printAll() {
+    public String printAll() {
         List<Cabinet> cabinets = service.listAll();
         cabinets.forEach(cabinet -> System.out.println(cabinet.toString()));
+        return "Printed.";
     }
 
     @GetMapping("/deleteCabinet/{cabinetID}")
-    public void delete(@PathVariable int cabinetID) {
+    public String delete(@PathVariable int cabinetID) {
         Cabinet cabinet = service.get(cabinetID);
         if (cabinet != null) {
             service.delete(cabinetID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
@@ -49,6 +51,7 @@ public class CabinetController {
         if(service.get(cabinetID) != null) {
             delete(cabinetID);
             add(newObject);
+            return "Updated succesfully.";
         }
         else{
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");

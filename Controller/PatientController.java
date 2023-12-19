@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -17,8 +18,9 @@ public class PatientController {
     @Autowired private PatientService service;
 
     @PostMapping("/addPatient")
-    public void add(@RequestBody Patient patient) {
+    public String add(@RequestBody Patient patient) {
         service.save(patient);
+        return "Added successfully.";
     }
 
     @GetMapping("/findByIdentifierPatient/{patientID}")
@@ -35,24 +37,27 @@ public class PatientController {
     public String printAll() {
         List<Patient> patients = service.listAll();
         patients.forEach(patient -> System.out.println(patient.toString()));
+        return "Printed";
     }
 
     @GetMapping("/deletePatient/{patientID}")
-    public void delete(@PathVariable int patientID) {
+    public String delete(@PathVariable int patientID) {
         Patient patient = service.get(patientID);
         if (patient != null) {
             service.delete(patientID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
     @GetMapping("/updatePatient/{patientID}/{newObject}")
-    public void update(@PathVariable int patientID, @RequestBody Patient newObject) {
+    public String update(@PathVariable int patientID, @RequestBody Patient newObject) {
         Patient existingPatient = service.get(patientID);
         if (existingPatient != null) {
             delete(patientID);
             add(newObject);
+            return "Updated successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
@@ -60,11 +65,12 @@ public class PatientController {
 
 
     @GetMapping("iteratePatients")
-    public void iteratePatients() {
+    public String iteratePatients() {
         PatientIterator<Patient> iterator = service.createIterator();
         while (iterator.hasNext()) {
             Patient patient = iterator.next();
             System.out.println(patient);
         }
+        return "Iterator successful.";
     }
 }

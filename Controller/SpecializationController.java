@@ -15,8 +15,9 @@ public class SpecializationController {
     private SpecializationService service;
 
     @PostMapping("/addSpecialization")
-    public void add(@RequestBody Specialization specialization) {
+    public String add(@RequestBody Specialization specialization) {
         service.save(specialization);
+        return "Added successfully";
     }
 
     @GetMapping("/findByIdentifierSpecialization/{specializationID}")
@@ -30,27 +31,30 @@ public class SpecializationController {
     }
 
     @GetMapping("/printAllSpecializations")
-    public void printAll() {
+    public String printAll() {
         List<Specialization> specializations = service.listAll();
         specializations.forEach(specialization -> System.out.println(specialization.toString()));
+        return "Printed";
     }
 
     @GetMapping("/deleteSpecialization/{specializationID}")
-    public void delete(@PathVariable int specializationID) {
+    public String delete(@PathVariable int specializationID) {
         Specialization specialization = service.get(specializationID);
         if (specialization != null) {
             service.delete(specializationID);
+            return "Deleted successfully";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/updateSpecialization/{specializationID}/{newObject}")
-    public void update(@PathVariable int specializationID, @RequestBody Specialization newObject) {
+    @GetMapping("/updateSpecialization/{specializationID}")
+    public String update(@PathVariable int specializationID, @RequestBody Specialization newObject) {
         Specialization existingSpecialization = service.get(specializationID);
         if (existingSpecialization != null) {
             delete(specializationID);
             add(newObject);
+            return "Updated successfully";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }

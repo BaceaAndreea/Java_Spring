@@ -12,8 +12,9 @@ import java.util.List;
 public class SurgeryController {
     @Autowired private SurgeryService service;
     @PostMapping("/addSurgery")
-    public void add(@RequestBody Surgery surgery) {
+    public String add(@RequestBody Surgery surgery) {
         service.save(surgery);
+        return "Added successfully.";
     }
 
     @GetMapping("/findByIdentifierSurgery/{surgeryID}")
@@ -27,27 +28,30 @@ public class SurgeryController {
     }
 
     @GetMapping("/printAllSurgery")
-    public void printAll() {
+    public String printAll() {
         List<Surgery> surgeries = service.listAll();
         surgeries.forEach(surgery -> System.out.println(surgery.toString()));
+        return "Printed.";
     }
 
     @GetMapping("/deleteSurgery/{surgeryID}")
-    public void delete(@PathVariable int surgeryID) {
+    public String delete(@PathVariable int surgeryID) {
         Surgery surgery = service.get(surgeryID);
         if (surgery != null) {
             service.delete(surgeryID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/updateSurgery/{surgeryID}/{newObject}")
-    public void update(@PathVariable int surgeryID, @RequestBody Surgery newObject) {
+    @GetMapping("/updateSurgery/{surgeryID}")
+    public String update(@PathVariable int surgeryID, @RequestBody Surgery newObject) {
         Surgery existingSurgery = service.get(surgeryID);
         if (existingSurgery != null) {
             delete(surgeryID);
             add(newObject);
+            return "Updated successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }

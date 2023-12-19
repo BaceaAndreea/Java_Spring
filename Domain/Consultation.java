@@ -23,7 +23,6 @@ public class Consultation{// implements Observable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int consultationID;
     private int patientID;
-
     private int doctorID;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String date;

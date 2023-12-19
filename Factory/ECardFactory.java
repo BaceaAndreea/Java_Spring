@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class ECardFactory implements HealthCardFactory<ECard> {
     @Override
-    public ECard create(ArrayList<String> cardData) {
-        return new ECard(cardData.get(0), Integer.parseInt(cardData.get(1)), Integer.parseInt(cardData.get(2)));
+    public ECard create(String expirationDate,int pin){
+        return new ECard(expirationDate, pin);
     }
 
 }

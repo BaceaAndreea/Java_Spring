@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @ToString
-
 @Table (name = "hospitals")
 public class Hospital {
     @Id

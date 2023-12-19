@@ -3,7 +3,7 @@ package map.project.demo.Domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table
+@Table(name="PCards")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +15,8 @@ public class PaperCard extends HealthCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int writtenID;
 
-    public PaperCard(String expirationDate, int pin, int writtenID) {
+    public PaperCard(String expirationDate, int pin) {
         super(expirationDate, pin);
-        this.writtenID = writtenID;
     }
 
     @Override

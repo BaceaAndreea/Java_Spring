@@ -1,7 +1,8 @@
 package map.project.demo.Decorator;
 
 public interface Decorator {
-    void displayDetails(Object object);
+
+    void displayDetails(int id);
 
      default String addEmptySpace(int length, int totalLength) {
         StringBuilder spaces = new StringBuilder();

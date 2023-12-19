@@ -5,18 +5,17 @@ import lombok.*;
 
 @Getter
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@Table(name="ECards")
 public class ECard extends HealthCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int electronicID;
 
-    public ECard(String expirationDate, int pin, int electronicID) {
+    public ECard(String expirationDate, int pin) {
         super(expirationDate, pin);
-        this.electronicID = electronicID;
     }
 
     @Override

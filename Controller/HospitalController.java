@@ -15,8 +15,9 @@ public class HospitalController {
     @Autowired private HospitalService service;
 
     @PostMapping("/addHospital")
-    public void add(@RequestBody Hospital hospital) {
+    public String add(@RequestBody Hospital hospital) {
         service.save(hospital);
+        return "Added successfully";
     }
 
     @GetMapping("/findByIdentifierHospital/{hospitalID}")
@@ -30,27 +31,30 @@ public class HospitalController {
     }
 
     @GetMapping("/printAllHospital")
-    public void printAll() {
+    public String printAll() {
         List<Hospital> hospitals = service.listAll();
         hospitals.forEach(hospital -> System.out.println(hospital.toString()));
+        return "Printed.";
     }
 
     @GetMapping("/deleteHospital/{hospitalID}")
-    public void delete(@PathVariable int hospitalID) {
+    public String delete(@PathVariable int hospitalID) {
         Hospital hospital = service.get(hospitalID);
         if (hospital != null) {
             service.delete(hospitalID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
     @GetMapping("/updateHospital/{hospitalID}")
-    public void update(@PathVariable int hospitalID, @RequestBody Hospital newObject) {
+    public String update(@PathVariable int hospitalID, @RequestBody Hospital newObject) {
         Hospital existingHospital = service.get(hospitalID);
         if (existingHospital != null) {
             delete(hospitalID);
             add(newObject);
+            return "Updated successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }

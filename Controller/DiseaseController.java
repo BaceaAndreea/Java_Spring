@@ -12,8 +12,9 @@ public class DiseaseController {
     @Autowired private DiseaseService service;
 
     @PostMapping("/addDisease")
-    public void add(@RequestBody Disease disease) {
+    public String add(@RequestBody Disease disease) {
         service.save(disease);
+        return "Added successfully.";
     }
 
     @GetMapping("/findDiseaseByIdDisease/{diseaseID}")
@@ -27,26 +28,29 @@ public class DiseaseController {
     }
 
     @GetMapping("/printAllDiseases")
-    public void printAll() {
+    public String printAll() {
         List<Disease> diseases = service.listAll();
         diseases.forEach(disease -> System.out.println(disease.toString()));
+        return "Printed.";
     }
 
     @GetMapping("/deleteDisease/{diseaseID}")
-    public void delete(@PathVariable int diseaseID) {
+    public String delete(@PathVariable int diseaseID) {
         Disease disease = service.get(diseaseID);
         if (disease != null) {
             service.delete(diseaseID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided disease identifier.");
         }
     }
 
-    @PostMapping("/updateDisease/{diseaseID}/ {newObject}")
-    public void update(@PathVariable int diseaseID, @RequestBody Disease newObject) {
+    @GetMapping("/updateDisease/{diseaseID}")
+    public String update(@PathVariable int diseaseID, @RequestBody Disease newObject) {
         if (service.get(diseaseID) != null) {
             delete(diseaseID);
             add(newObject);
+            return "Updated successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided disease identifier.");
         }

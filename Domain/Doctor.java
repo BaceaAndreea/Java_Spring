@@ -13,7 +13,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Builder
 @ToString
-
 @Table (name = "doctors")
 public class Doctor {
     @Id

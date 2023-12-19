@@ -15,8 +15,9 @@ public class ConsultationController {
     private ConsultationService service;
 
     @PostMapping("/addConsultation")
-    public void add(@RequestBody Consultation consultation) {
+    public String add(@RequestBody Consultation consultation) {
         service.save(consultation);
+        return "Added successfully.";
     }
 
     @GetMapping("/findByIdentifierConsultation/{consultationID}")
@@ -30,27 +31,29 @@ public class ConsultationController {
     }
 
     @GetMapping("/printAllConsultation")
-    public void printAll() {
+    public String printAll() {
         List<Consultation> consultations = service.listAll();
         consultations.forEach(consultation -> System.out.println(consultation.toString()));
-    }
+        return "Printed.";    }
 
-    @DeleteMapping("/deleteConsultation/{consultationID}")
-    public void delete(@PathVariable int consultationID) {
+    @GetMapping("/deleteConsultation/{consultationID}")
+    public String delete(@PathVariable int consultationID) {
         Consultation consultation = service.get(consultationID);
         if (consultation != null) {
             service.delete(consultationID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
-    @GetMapping("/updateConsultation/{consultationID}/ {newObject}")
-    public void update(@PathVariable int consultationID, @RequestBody Consultation newObject) {
+    @GetMapping("/updateConsultation/{consultationID}")
+    public String update(@PathVariable int consultationID, @RequestBody Consultation newObject) {
         Consultation existingConsultation = service.get(consultationID);
         if (existingConsultation != null) {
             delete(consultationID);
             add(newObject);
+            return "Updated successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }

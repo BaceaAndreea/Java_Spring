@@ -19,8 +19,9 @@ public class DoctorController {
     }
 
     @PostMapping("/addDoctor")
-    public void add(@RequestBody Doctor doctor) {
+    public String add(@RequestBody Doctor doctor) {
         service.save(doctor);
+        return "Added successfully.";
     }
 
     @GetMapping("/findByIdentifierDoctor/{doctorID}")
@@ -34,28 +35,31 @@ public class DoctorController {
     }
 
     @GetMapping("/printAllDoctors")
-    public void printAll() {
+    public String printAll() {
         List<Doctor> doctors =  service.listAll();
         doctors.forEach(doctor -> System.out.println(doctor.toString()));
+        return "Printed.";
     }
 
     @GetMapping("/deleteDoctor/{doctorID}")
-    public void delete(@PathVariable int doctorID) {
+    public String delete(@PathVariable int doctorID) {
         Doctor doctor = service.get(doctorID);
         if (doctor != null) {
             service.delete(doctorID);
+            return "Deleted successfully.";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
 
 
-    @GetMapping("/update/{doctorID}/ {newObject}")
-    public void update(@PathVariable int doctorID, @RequestBody Doctor newObject) {
+    @GetMapping("/updateDoctor/{doctorID}")
+    public String update(@PathVariable int doctorID, @RequestBody Doctor newObject) {
         Doctor existingDoctor = service.get(doctorID);
         if (existingDoctor != null) {
             delete(doctorID);
             add(newObject);
+            return "Updated successfully";
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
