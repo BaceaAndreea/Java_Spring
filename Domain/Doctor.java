@@ -19,11 +19,11 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorID;
-    private String name, firstName;
+    private String name;
+    private String firstName;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String birthdate;
     private int hospitalID;
-    private String contactPhone;
     private int specializationID;
     private int cabinetID;
 }

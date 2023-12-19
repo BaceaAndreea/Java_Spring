@@ -9,7 +9,8 @@ import java.util.List;
 
 @RestController
 public class CabinetController {
-    @Autowired private CabinetService service ;
+    @Autowired
+    private CabinetService service;
 
     @PostMapping("/addCabinet")
     public String add(@RequestBody Cabinet cabinet) {
@@ -42,8 +43,9 @@ public class CabinetController {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
     }
-    @GetMapping("/updateCabinet/{cabinetID}/{newObject}")
-    public void update(@PathVariable int cabinetID,@RequestBody Cabinet newObject) {
+
+    @GetMapping("/updateCabinet/{cabinetID}")
+    public String update(@PathVariable int cabinetID,@RequestBody Cabinet newObject) {
         if(service.get(cabinetID) != null) {
             delete(cabinetID);
             add(newObject);

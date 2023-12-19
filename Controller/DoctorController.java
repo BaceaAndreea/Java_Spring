@@ -1,11 +1,10 @@
 package map.project.demo.Controller;
 
+
 import map.project.demo.Domain.Doctor;
-import map.project.demo.Repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import map.project.demo.Service.DoctorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class DoctorController {
 
     @GetMapping("/getAllDoctor")
     public List<Doctor> getAll() {
-        return (List<Doctor>) service.listAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAllDoctors")

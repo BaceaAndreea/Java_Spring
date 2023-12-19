@@ -1,6 +1,6 @@
 package map.project.demo;
 
-import map.project.demo.UI.Start;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

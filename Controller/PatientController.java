@@ -28,12 +28,12 @@ public class PatientController {
 
     @GetMapping("/getAllPatient")
     public List<Patient> getAll() {
-        return (List<Patient>) service.listAll();
+        return service.listAll();
     }
 
     @GetMapping("/printAllPatient")
-    public void printAll() {
-        List<Patient> patients = (List<Patient>) service.listAll();
+    public String printAll() {
+        List<Patient> patients = service.listAll();
         patients.forEach(patient -> System.out.println(patient.toString()));
     }
 
@@ -56,12 +56,6 @@ public class PatientController {
         } else {
             throw new IllegalArgumentException("Nothing was found for the provided identifier.");
         }
-    }
-    @GetMapping("createIterator")
-    public PatientIterator createIterator() {
-        Iterable<Patient> patients = getAll();
-        PatientIteratorImpl iterator = new PatientIteratorImpl(patients);
-        return iterator;
     }
 
 

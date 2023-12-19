@@ -22,7 +22,8 @@ public class Patient{
     private String firstName;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String birthdate;
-    private String contactPhone;
+    //@Column(name = "contactPhone")
+    //private String contactPhone;
     private int cardID;
 
 }
