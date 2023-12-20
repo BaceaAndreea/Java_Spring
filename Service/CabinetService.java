@@ -13,10 +13,14 @@ import java.util.Optional;
 public class CabinetService {
     @Autowired
     private CabinetRepository cabinetRepository;
+    @Autowired
+    public CabinetService(CabinetRepository cabinetRepository) {
+        this.cabinetRepository = cabinetRepository;
+    }
+
     public List<Cabinet> listAll() {
         return (List<Cabinet>) cabinetRepository.findAll();
     }
-
 
     public void save(Cabinet cabinet) {
         cabinetRepository.save(cabinet);

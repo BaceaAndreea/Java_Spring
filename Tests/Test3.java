@@ -1,17 +1,18 @@
 //package Tests;
 //
-//import Repository.MedicationRepository;
-//import Repository.DiseaseRepository;
-//import Domain.Medication;
-//import Domain.Disease;
-//import org.junit.jupiter.api.Test;
+//import map.project.demo.Repository.MedicationRepository;
+//import map.project.demo.Repository.DiseaseRepository;
+//import map.project.demo.Domain.Medication;
+////import map.project.demo.Domain.Disease;
+//import map.project.demo.Service.DiseaseSrvice;
+//import org.testng.annotations.Test;
 //
 //import java.util.ArrayList;
 //
-//import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.Assert.assertEquals;
 //
 //class Test3 {
-//    private final DiseaseRepository diseaseRepository = new DiseaseRepository();
+//    private final DiseaseService diseaseService = new DiseaseService();
 //
 //    private final MedicationRepository medicationRepository = new MedicationRepository();
 //

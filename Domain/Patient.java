@@ -22,8 +22,12 @@ public class Patient{
     private String firstName;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String birthdate;
-    //@Column(name = "contactPhone")
-    //private String contactPhone;
     private int cardID;
 
+    public Patient(String name, String firstName, String birthdate, int cardID) {
+        this.name = name;
+        this.firstName = firstName;
+        this.birthdate = birthdate;
+        this.cardID = cardID;
+    }
 }

@@ -11,8 +11,14 @@ import lombok.*;
 @ToString
 @Table(name = "cabinets")
 public class Cabinet {
+    public Cabinet(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     private int cabinetID;
     private String name;
 }
